@@ -6,7 +6,7 @@ const app=express();
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:true}));
 app.get("/",function(req,res){
-  res.sendFile(__dirname+"/signup.html");
+  res.sendFile(__dirname+"/index.html");
 })
 app.post("/",function(req,res){
   const firstName=req.body.fname;
@@ -26,10 +26,10 @@ app.post("/",function(req,res){
     ]
   };
   const jsonData=JSON.stringify(data);
-  const url="https://us7.api.mailchimp.com/3.0/lists/c603dd4457";
+  const url="https://us7.api.mailchimp.com/3.0/lists/"+config.listId;
   const options={
     method:"POST",
-    auth:"aparnan:94f87d6267e43e8898a64278c3fe85cd-us7"
+    auth:"aparnan:"+config.apiKey;
   }
   const request=https.request(url,options,function(response){
     if(response.statusCode===200){
@@ -61,6 +61,6 @@ app.listen(process.env.PORT || 3000,function(){
 
 
 //API Key
-//94f87d6267e43e8898a64278c3fe85cd-us7
+//5634fdcb3a51f609645b1def29f6989b-us7
 // List ID
 // c603dd4457
